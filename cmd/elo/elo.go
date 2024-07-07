@@ -15,7 +15,7 @@ func (e *Elo) CalculateProbability(rating1 int64, rating2 int64) float64 {
 }
 
 func (e *Elo) CalculateRating(rating int64, outcome float64, expected float64) int64 {
-	result := float64(rating) + float64(float64(e.K)*(float64(outcome)-expected))
+	result := float64(rating) + (e.K * (outcome - expected))
 
 	rounded := math.Round(result)
 
@@ -27,7 +27,7 @@ func (e *Elo) CalculateRatings(rating1 int64, rating2 int64, outcome float64) (i
 	result1 := e.CalculateRating(rating1, outcome, prob1)
 	result2 := rating1 - result1 + rating2
 
-	return result1, int64(result2)
+	return result1, result2
 }
 
 func CreateBaseElo() *Elo {
